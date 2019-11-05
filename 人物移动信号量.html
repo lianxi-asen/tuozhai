@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>人物移动信号量</title>
+    <style>
+    *{
+        margin:0;                       
+        padding:0;
+    }
+    #box{
+        position: absolute;
+        top:50%;
+        left:50%;
+        width: 50px;
+        height:62px;
+        /* background-color:pink; */
+    }
+    .left{
+        background-image: url(img/left.png);
+    }                                         
+    .right{                                                                                                                                                                                                 
+        background-image: url(img/right.png);
+    }
+    .top{
+        background-image: url(img/up.png                                                                                                                                                                                                                                    );
+    }
+    .down{
+        background-image: url(img/down.png);
+    }
+</style>
+</head>
+<body>
+    <div id="box" class="down">
+
+    </div>
+    <script>
+        //利用信号量  就不要频繁的操作dom
+        //获取对应的元素
+        var box = document.getElementById("box")
+        document.addEventListener("keydown",function(event){
+            //处理兼容
+            event = event || window.event
+            //获取box距离定位父级的距离
+            var X = box.offsetLeft
+            var Y = box.offsetTop
+            //console.log(X,Y)
+            var arr = ["top","down","left","right"]
+            var num = 3
+            //console.log(event.keyCode)
+            switch(event.keyCode){
+                case 38://上
+                num = 0
+                Y -= 5
+                break;
+                case 40://下
+                num = 1;
+                Y +=5
+                // box.className = arr[num]
+                break;
+                case 37://左
+                num = 2
+                X -=5
+                // box.className = arr[num]
+                break;
+                case 39:
+                num = 3;
+                X +=5
+                // box.className = arr[num]
+                break;
+            }
+            //先判断完最后添加类名
+            box.className = arr[num]
+            box.style.cssText = "left:"+X+"px;top:"+Y+"px;"
+        },false)
+    </script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;                       
+            padding:0;
+        }
+        #box{
+            position: absolute;
+            top:50%;
+            left:50%;
+            width: 50px;
+            height:62px;
+            /* background-color:pink; */
+        }
+        .left{
+            background-image: url(img/left.png);
+        }                                         
+        .right{
+            background-image: url(img/right.png);
+        }
+        .top{
+            background-image: url(img/up.png);
+        }
+        .down{
+            background-image: url(img/down.png);
+        }
+    </style>
+</head>
+<body>
+    <div id="box" class="down">
+
+    </div>
+    <script>
+        //获取元素 
+        var box = document.getElementById("box")
+        //绑定事件 只能给document绑定  box 元素 又不是输入框  怎么按
+        document.addEventListener('keydown',function(event){
+            //处理主流游览器兼容
+            event = event || window.event
+            //当每次点击键盘时
+            //获取当前元素的距离定位位置
+            var X = box.offsetLeft
+            var Y = box.offsetTop
+            //console.log(X,Y)
+            //判断键值  看看点击的那个键
+            var keyde = event.keyCode
+            //console.log(keyde)
+            if(keyde===38 || keyde===87){//上
+                box.className = "top"
+                Y = Y-5
+            }else if(keyde===40 || keyde===83){//下
+                box.className = "down"
+                Y = Y +5
+            }else if(keyde===37 || keyde===65){//左
+                box.className = "left"
+                X = X - 5
+            }else if(keyde===68 || keyde===39){//右
+                box.className = "right"
+                X = X+5
+            }
+            box.style.top = Y+"px"
+            box.style.left = X + "px"
+        },false)
+    </script>
+</body>
+</html>

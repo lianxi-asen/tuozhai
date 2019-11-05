@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        #box{
+            position: absolute;
+            top:50%;
+            left:50%;
+            width: 50px;
+            height: 62px;
+            /* background-color: deeppink; */
+            
+        }
+        .left{
+            background-image: url("img/left.png");
+        }
+        .right{
+            background-image: url("img/right.png");
+        }
+        .top{
+            background-image: url("img/up.png");
+        }
+        .bottom{
+            background-image: url(img/down.png);
+        }
+    </style>
+</head>
+<body>
+    <div id="box" class="bottom">
+
+    </div>
+    <script>
+        //先获取盒子的元素
+        var box = document.getElementById("box")
+        //console.log(box)
+        
+        document.addEventListener("keydown",function(event){
+                //处理兼容 主流游览器 支持event  ie8以下支持window.event 能力检测  
+                event = event || window.event
+                //当每次键盘按下的时候 获取当前元素到定位父级的距离
+                //当前元素 没有定位父级固然相当于 body
+                var X = box.offsetLeft
+                var Y = box.offsetTop
+                //console.log(event.keyCode)
+                //判断键值 点击的是哪个键
+                switch(event.keyCode){
+                    //上
+                    case 38:
+                        //让class改变类名
+                        box.className = "top"
+                        //当前元素距离顶部的距离 Y = Y-5
+                        Y-=5  
+                    break;
+                    //右
+                    case 39:
+                        box.className = "right"
+                        X+=5
+                    break;
+                    //40 下
+                    case 40:
+                        box.className = "bottom"
+                        Y+=5
+                    break;
+                    //左
+                    case 37:
+                        box.className = "left"
+                        X-=5
+                    break;
+                } 
+                //最后 将 xy 的值拼接 上px  因为 offsetLeft 和 offsetTop 拿到值的没有单位 需要重新拼接
+                box.style.left = X+"px"
+                box.style.top = Y  + "px"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+        },false)
+    </script>
+</body>
+</html>

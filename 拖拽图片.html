@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图片拖拽</title>
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+            list-style: none;
+        }
+        #box{
+            position: fixed;
+            top:35%;
+            left:35%;
+            width: 458px;
+            height: 211px;
+            /* background-color:red; */
+        }
+        ul li{
+            position:absolute;
+            top:0;
+            left:0;
+            width: 100%;
+            height:100%;
+            /* padding:10px; */
+            /* background-color: rgb(112, 97, 69); */
+        }
+        ul li img{
+            width: 100%;
+            height:100%
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <ul>
+            <li>
+                <img src="img/1.jpg" alt="">
+            </li>
+            <li>
+                <img src="img/2.jpg" alt="">
+            </li>
+            <li>
+                <img src="img/3.jpg" alt="">
+            </li>
+            <li>
+                <img src="img/4.jpg" alt="">
+            </li>
+            <li>
+                <img src="img/5.jpg" alt="">
+            </li>
+        </ul>
+    </div>
+    <script>
+        //获取box
+        var box = document.getElementById("box")
+        var num = 0;
+        // console.log(box)
+        box.addEventListener("mousedown",function(event){
+            //事件委托
+            event = event || window.event
+            //阻止默认事件
+            prent(event)
+            //处理目标元素兼容
+            var target = event.target || event.srcElement
+            //但是着的img 这时要去找他的父级li
+            var parnode = target.parentNode
+            //console.log(parnode)
+            if(parnode.nodeName=="LI"){
+                //就获取鼠标距离游览器的距离
+                var clitX = event.clientX
+                var clitY = event.clientY
+                var offX = parnode.offsetLeft
+                var offY = parnode.offsetTop
+                // console.log(offX,offY)
+                //获取鼠标按下去的值 以后 在获取鼠标移动时的位置
+                document.addEventListener("mousemove",xx,false)
+                function xx(event){
+                         event = event || window.event
+                        //  console.log(111)
+                        //处理兼容
+                        event = event || window.event
+                        //获取新的移动的值
+                        var newX = event.clientX
+                        var newY = event.clientY 
+                        
+                        // console.log(newX,newY)
+                        //获取到的新值减去 点击时候的值 得到差值
+                        var X = newX - clitX + offX
+                        var Y = newY - clitY + offY
+                        // console.log(X,Y)
+                        //给li赋值
+                        parnode.style.left = X + "px"
+                        parnode.style.top = Y + "px"
+                        parnode.style.zIndex = num++
+                }
+                //鼠标抬起
+                document.addEventListener("mouseup",function(){
+                    document.removeEventListener("mousemove",xx,false)
+                },false)
+            }
+        },false)
+        //封装函数 阻止默认事件
+        function prent(event){
+            if(event.preventDefault){//判断的时候不能加括号
+                event.preventDefault()
+                //console.log(111)
+            }else{
+                event,returnValue = false
+            }
+        }
+
+    </script>
+</body>
+</html>
